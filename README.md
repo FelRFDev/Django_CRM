@@ -1,4 +1,5 @@
-<h1 align="center"> Django CRM (Customer Relationship Manager) </h1>
+<h1 align="center"> Django CRM (Customer Relationship Manager) <img src="https://github.com/FelRFDev/Django_CRM/assets/89205473/6cf36a03-36c5-4703-b1e8-1be4499c28a3" align="center" height="100" width="280" >  
+</h1>
 Este repositório contém o código desenvolvido para o sistema de CRM feito utilizando Python, Django e Bootstrap 4.
 <br><br>
 
