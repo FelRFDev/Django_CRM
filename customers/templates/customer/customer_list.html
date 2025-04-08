@@ -1,0 +1,93 @@
+{% extends "model_page.html" %}
+
+{% block content %}
+    <h2>Clientes</h2>
+
+    <a href="{% url 'customer:customer-create' %}">
+        <button class="btn btn-success" style="float: right; margin-bottom: 40px;">Adicionar</button>
+    </a>
+        
+    <form>
+        <div class="form-group mb-2">
+            <input class="form-control" type="text" name="name" placeholder="Buscar por nome...">
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <table class="table table-bordered mt-5"> 
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cidade</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente_registrado in customer_list %}
+                <tr>
+                    <td><a href="{{ cliente_registrado.get_absolute_url }}"> {{cliente_registrado.first_name}} {{cliente_registrado.last_name}} </a></td>
+                    <td>{{cliente_registrado.city}}</td>
+                    <td>{{cliente_registrado.phone_number}}</td>
+                    <td>{{cliente_registrado.email}}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger delete-btn" data-toggle="modal" data-target="#confirmDeleteModal" data-url="{{ cliente_registrado.get_delete_url }}">Excluir</button>
+                    </td>
+                </tr>
+            {% endfor %}   
+        </tbody>       
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir este cliente?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form id="deleteForm" method="post" action="">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Anterior</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% endif %}
+
+        {% for object in page_obj.paginator.page_range  %}
+            <li class="page-item"><a class="page-link" href="?page={{object}}">{{object}}</a></li>
+        {% endfor %}
+            
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Próximo</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Próximo</a></li>
+        {% endif %}
+    </ul>
+
+    <script>
+        $(document).ready(function() {
+            $('.delete-btn').on('click', function() {
+                var deleteUrl = $(this).data('url');
+                $('#deleteForm').attr('action', deleteUrl);
+            });
+        });
+    </script>
+
+{% endblock %}
