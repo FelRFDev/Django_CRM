@@ -23,8 +23,7 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', views.login_page, name='login'),
-    path('login/submit',views.submit_login, name='submit_login'),
+    path('login/',views.submit_login, name='login'),
     path('logout/', views.lougout_user, name='logout'),
     path("index/", login_required(TemplateView.as_view(template_name='index.html')), name='index'),
     path('', RedirectView.as_view(url='/login/')),

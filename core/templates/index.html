@@ -1,5 +1,244 @@
-{% extends "model_page.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM – Gestão Corporativa</title>
 
-{% block content %} 
-    <h1>CRM</h1> 
-{% endblock %}
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+
+  <style>
+    :root {
+      --primary: #38BDF8;
+      --bg-dark: #0F172A;
+      --bg-secondary: #1E293B;
+      --text-light: #F1F5F9;
+      --border: #E2E8F0;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-secondary);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    nav.navbar {
+      padding: 1rem 2rem;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-light);
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 4rem 2rem;
+      background: var(--bg-dark);
+    }
+
+    .hero .text {
+      flex: 1;
+      min-width: 300px;
+      animation: fadeSlide 0.7s ease-out forwards;
+      opacity: 0;
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border: none;
+      color: #0F172A;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+    }
+
+    .hero .image {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+      animation: fadeSlide 0.7s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Features */
+    .features {
+      padding: 3rem 2rem;
+      background: var(--bg-secondary);
+    }
+
+    .feature-card {
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.15);
+    }
+
+    .feature-card h5 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      background: #0F172A;
+      color: #94a3b8;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar navbar-expand">
+      <a class="navbar-brand" href="#">CRM</a>
+      <div class="navbar-nav ml-auto">
+        <a class="nav-link" href="{% url 'customer:customer-list' %}">Clientes</a>
+        <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="text">
+        <h1>CRM Corporativo de Alto Desempenho</h1>
+        <p>Automatize processos, fortaleça relacionamentos e escale seu negócio com nossa solução moderna.</p>
+        <a href="{% url 'customer:customer-list' %}" class="btn btn-primary">Ver Clientes</a>
+      </div>
+      <div class="image">
+        <img src="https://images.unsplash.com/photo-1587614203976-365c74645e83?auto=format&fit=crop&w=800&q=80" alt="Mesa com computador">
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <h5>Visão 360º do Cliente</h5>
+            <p>Consolide histórico, perfil e interações em um só lugar com máxima clareza.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <h5>Automação Inteligente</h5>
+            <p>Ganhe tempo com fluxos otimizados e alertas em tempo real para oportunidades.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <h5>Relatórios Interativos</h5>
+            <p>Dashboard dinâmico com indicadores de performance e funil de vendas visual.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © {{ now|date:"Y" }} CRM • Todos os direitos reservados
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

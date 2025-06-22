@@ -84,8 +84,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+#Database
+#https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     "default":{
@@ -102,6 +102,15 @@ DATABASES = {
     }
 }
 
+
+
+"""Utilize teste banco de dados caso queira testar sem o docker e comente o databases acima."""
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation

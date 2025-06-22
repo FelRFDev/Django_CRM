@@ -12,9 +12,19 @@ from django.db.models import Q
 # Create your views here.
 
 class CustomerListView(ListView):
-    template_name = 'customer/customer_list.html'
-    paginate_by = 6
     model = Customer
+    context_object_name = 'customer_list'
+    template_name = 'customer/customer_list.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Força a paginação aparecer sempre
+        context['is_paginated'] = True
+
+        return context
+
     
     def get_queryset(self):
         name = self.request.GET.get('name')
